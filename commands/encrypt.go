@@ -2,6 +2,7 @@ package commands
 
 import (
 	"bufio"
+	"encoding/hex"
 	"github.com/dbubel/passman/internal"
 	"os"
 )
@@ -18,6 +19,7 @@ func (c *EncryptCmd) Synopsis() string {
 }
 
 func (c *EncryptCmd) Run(args []string) int {
-	internal.Encrypt(os.Getenv("PW"), bufio.NewReader(os.Stdin), os.Stdout)
+	hexEncoder := hex.NewEncoder(os.Stdout)
+	internal.Encrypt(os.Getenv("PW"), bufio.NewReader(os.Stdin), hexEncoder)
 	return 0
 }

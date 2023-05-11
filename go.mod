@@ -1,11 +1,10 @@
 module github.com/dbubel/passman
 
-go 1.19
+go 1.17
 
 require (
 	github.com/mitchellh/cli v1.1.5
 	golang.org/x/crypto v0.9.0
-	golang.org/x/term v0.8.0
 )
 
 require (

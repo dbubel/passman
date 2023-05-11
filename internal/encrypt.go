@@ -5,10 +5,8 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"crypto/sha256"
-	"encoding/base64"
 	"golang.org/x/crypto/pbkdf2"
 	"io"
-	"os"
 )
 
 func Encrypt(password string, in io.Reader, out io.Writer) error {
@@ -43,8 +41,14 @@ func Encrypt(password string, in io.Reader, out io.Writer) error {
 
 	mode := cipher.NewCFBEncrypter(block, iv)
 
-	encoder := base64.NewEncoder(base64.StdEncoding, os.Stdout)
-	writer := &cipher.StreamWriter{S: mode, W: encoder}
+	//encoder := hex.NewEncoder(out)
+	writer := &cipher.StreamWriter{S: mode, W: out}
+
+	defer func() {
+		//defer encoder.Close()
+
+		defer writer.Close()
+	}()
 
 	if _, err := io.Copy(writer, in); err != nil {
 		return err
