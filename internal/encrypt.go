@@ -9,6 +9,15 @@ import (
 	"io"
 )
 
+func generateRandomString() (string, error) {
+	b := make([]byte, 16)
+	_, err := rand.Read(b)
+	if err != nil {
+		return "", err
+	}
+	return string(b), nil
+}
+
 func Encrypt(password string, in io.Reader, out io.Writer) error {
 	salt, err := generateRandomString()
 	if err != nil {
@@ -41,18 +50,11 @@ func Encrypt(password string, in io.Reader, out io.Writer) error {
 
 	mode := cipher.NewCFBEncrypter(block, iv)
 
-	//encoder := hex.NewEncoder(out)
 	writer := &cipher.StreamWriter{S: mode, W: out}
 
-	defer func() {
-		//defer encoder.Close()
+	defer writer.Close()
 
-		defer writer.Close()
-	}()
+	_, err = io.Copy(writer, in)
 
-	if _, err := io.Copy(writer, in); err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
