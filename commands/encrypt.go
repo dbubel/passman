@@ -21,5 +21,6 @@ func (c *EncryptCmd) Synopsis() string {
 func (c *EncryptCmd) Run(args []string) int {
 	hexEncoder := hex.NewEncoder(os.Stdout)
 	internal.Encrypt(os.Getenv("PW"), bufio.NewReader(os.Stdin), hexEncoder)
+
 	return 0
 }

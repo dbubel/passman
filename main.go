@@ -15,6 +15,9 @@ func main() {
 		"encrypt": func() (cli.Command, error) {
 			return &commands.EncryptCmd{}, nil
 		},
+		"decrypt": func() (cli.Command, error) {
+			return &commands.DecryptCmd{}, nil
+		},
 	}
 
 	_, err := c.Run()
