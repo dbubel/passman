@@ -9,11 +9,11 @@ import (
 type DecryptCmd struct{}
 
 func (c *DecryptCmd) Help() string {
-	return ""
+	return "Ex) cat somefile.txt | pman > somefile.encrypted"
 }
 
 func (c *DecryptCmd) Synopsis() string {
-	return "Runs the cohesion content API server"
+	return "decrypts a stream from os.Stdin"
 }
 
 func (c *DecryptCmd) Run(args []string) int {

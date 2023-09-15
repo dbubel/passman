@@ -22,17 +22,6 @@ func main() {
 
 	_, err := c.Run()
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Fprintf(os.Stderr, err.Error())
 	}
-
-	//fmt.Printf("Ciphertext: %s\n", hex.EncodeToString(ciphertext))
-	//
-	//// Decrypt the message
-	//plaintext, err := internal.Decrypt(ciphertext, passwordStr)
-	//if err != nil {
-	//	fmt.Println(err)
-	//	return
-	//}
-	//
-	//fmt.Printf("Plaintext: %s\n", plaintext)
 }
